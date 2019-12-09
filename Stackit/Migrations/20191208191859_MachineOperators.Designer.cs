@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stackit.Data;
 
 namespace Stackit.Migrations
 {
     [DbContext(typeof(StackitDbContext))]
-    partial class StackitDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191208191859_MachineOperators")]
+    partial class MachineOperators
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,7 +85,7 @@ namespace Stackit.Migrations
 
             modelBuilder.Entity("Stackit.Models.MOperator", b =>
                 {
-                    b.Property<int>("MOperatorId")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -94,14 +96,14 @@ namespace Stackit.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("MOperatorId");
+                    b.HasKey("ID");
 
                     b.ToTable("Operators");
                 });
 
             modelBuilder.Entity("Stackit.Models.Machine", b =>
                 {
-                    b.Property<int>("MachineId")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -112,7 +114,7 @@ namespace Stackit.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("MachineId");
+                    b.HasKey("ID");
 
                     b.ToTable("Machines");
                 });
@@ -124,17 +126,17 @@ namespace Stackit.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MOperatorId")
+                    b.Property<int>("MachineId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MachineId")
+                    b.Property<int>("OperatorId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("MOperatorId");
-
                     b.HasIndex("MachineId");
+
+                    b.HasIndex("OperatorId");
 
                     b.ToTable("MachineOperator");
                 });
@@ -150,15 +152,15 @@ namespace Stackit.Migrations
 
             modelBuilder.Entity("Stackit.Models.MachineOperator", b =>
                 {
-                    b.HasOne("Stackit.Models.MOperator", "Operator")
-                        .WithMany("MachineOperators")
-                        .HasForeignKey("MOperatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Stackit.Models.Machine", "Machine")
                         .WithMany("MachineOperators")
                         .HasForeignKey("MachineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Stackit.Models.MOperator", "Operator")
+                        .WithMany("MachineOperators")
+                        .HasForeignKey("OperatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

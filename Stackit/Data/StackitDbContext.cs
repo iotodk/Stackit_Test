@@ -11,6 +11,9 @@ namespace Stackit.Data
     {
         public DbSet<Client> Clients { get; set; }
         public DbSet<ClientType> ClientTypes { get; set; }
+        public DbSet<MOperator> Operators { get; set; }
+        public DbSet<Machine> Machines { get; set; }
+        public DbSet<MachineOperator> MachineOperator { get; set; }
 
         public StackitDbContext(DbContextOptions<StackitDbContext> options) :  base(options)
         {

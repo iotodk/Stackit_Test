@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stackit.Data;
 
 namespace Stackit.Migrations
 {
     [DbContext(typeof(StackitDbContext))]
-    partial class StackitDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191208192139_MachineOperators-1")]
+    partial class MachineOperators1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
